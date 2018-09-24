@@ -1,3 +1,9 @@
+"""
+face_mandara.py
+
+"""
+
+
 import dlib
 
 import face_recognition
