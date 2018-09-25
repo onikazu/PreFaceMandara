@@ -41,8 +41,10 @@ dets, scores, idx = detector.run(img, 0)
 rects = detector(img_rgb, 1)
 
 landmark = []
+cap_landmark = []
 for rect in rects:
     cap_landmark = np.matrix([[p.x, p.y] for p in PREDICTOR(img_rgb, rect).parts()])
+cap_landmark = list(cap_landmark)
 
 with open('data.pickle', mode='rb') as f:
     datas = pickle.load(f)
@@ -55,7 +57,7 @@ print(datas)
 
 i = 0
 for k in datas:
-    distance = get_distance(datas[k], list(dets))
+    distance = get_distance(datas[k], list(cap_landmark))
     if i == 0:
         similar_distance = distance
         similar_path = k
