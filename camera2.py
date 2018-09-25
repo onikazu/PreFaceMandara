@@ -1,16 +1,13 @@
 
 import dlib
 
-import face_recognition
-import json
-import sys
-import glob
+
 import pickle
 import numpy as np
 import math
 from PIL import Image
 import cv2
-import time
+
 
 
 PREDICTOR_PATH = './shape_predictor_68_face_landmarks.dat'
