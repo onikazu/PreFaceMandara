@@ -9,7 +9,6 @@ from PIL import Image
 import cv2
 
 
-
 PREDICTOR_PATH = './shape_predictor_68_face_landmarks.dat'
 PREDICTOR = dlib.shape_predictor(PREDICTOR_PATH)
 detector = dlib.get_frontal_face_detector()

@@ -1,8 +1,5 @@
 import dlib
 
-import face_recognition
-import json
-import sys
 import glob
 import pickle
 import cv2
