@@ -29,7 +29,7 @@ def get_distance(a, b):
     return math.sqrt(distance)
 
 
-pic_image_path = "./target_face/jobjob.jpeg"
+pic_image_path = "./target_face/photo.jpeg"
 
 with open('data.pickle', mode='rb') as f:
     datas = pickle.load(f)
