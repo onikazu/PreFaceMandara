@@ -22,7 +22,7 @@ def get_distance(a, b):
     return math.sqrt(distance)
 
 def main():
-    cap = cv2.VideoCapture(1)  # 1はカメラのデバイス番号
+    cap = cv2.VideoCapture(0)  # 1はカメラのデバイス番号
     while True:
         ret, frame = cap.read()
 
