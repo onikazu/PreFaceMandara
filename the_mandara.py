@@ -163,6 +163,7 @@ def main():
             cv2.imwrite('./opencv_concat_tile.jpg', im_tile)
             tile_image = Image.open('./opencv_concat_tile.jpg')
             tile_image.show()
+            tile_image.close()
             break
 
 
