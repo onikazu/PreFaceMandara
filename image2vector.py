@@ -18,6 +18,7 @@ for image_file in trimmed_images:
     # 顔認識
     detector = dlib.get_frontal_face_detector()
     rects = detector(image, 1)
+    print(rects)
     print(rects[0])
     # 顔認識してい無いとき
     if rects[0].is_empty():
