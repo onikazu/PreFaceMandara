@@ -55,22 +55,30 @@ def main():
             target_image_encoded = face_recognition.face_encodings(target_image)[0]
 
             # 9個似ている顔を判定してやる
-            similar_vec = []
-            similar_path = []
-            similar_distance = []
+            similar_vecs = []
+            similar_paths = []
+            similar_distances = []
 
             i = 0
             for k in datas:
                 distance = get_distance(datas[k], list(target_image_encoded))
+                # 最初
                 if i == 0:
-                    similar_distance = distance
-                    similar_path = k
-                    similar_vec = datas[k]
+                    similar_distances.append(distance)
+                    similar_paths.append(k)
+                    similar_vecs.append(datas[k])
                 else:
-                    if similar_distance > distance:
-                        similar_distance = distance
-                        similar_path = k
-                        similar_vec = datas[k]
+                    i += 1
+                    for j in range(len(similar_distances)):
+                        if similar_distances[j] > distance:
+                            similar_distances.insert(j, distance)
+                            similar_paths.insert(j, k)
+                            similar_vecs.insert(j, datas[k])
+                        if len(similar_distances) < 10:
+                            similar_distances.append(distance)
+                            similar_paths.append(k)
+                            similar_vecs.append(datas[k])
+
 
                 print("{0}:{1}".format(k, distance))
                 i += 1
