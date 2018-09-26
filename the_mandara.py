@@ -22,6 +22,11 @@ def get_distance(a, b):
     return math.sqrt(distance)
 
 def concat_tile(im_list_2d):
+    """
+    イメージをタイル状に敷き詰める
+    :param im_list_2d: list(2d)
+    :return:
+    """
     return cv2.vconcat([cv2.hconcat(im_list_h) for im_list_h in im_list_2d])
 
 
@@ -30,11 +35,15 @@ def main():
     cap = cv2.VideoCapture(0)  # 1はカメラのデバイス番号
     while True:
         ret, frame = cap.read()
-        cv2.imshow("camera", frame)
-
         # 顔認識
         detector = dlib.get_frontal_face_detector()
         rects = detector(frame, 1)
+
+
+
+        cv2.imshow("camera", frame)
+
+
 
         # 切り出し
         if rects == None:
@@ -50,7 +59,7 @@ def main():
         target_image_paths = glob.glob("./target_face/face*.jpg")
 
         # databaseの読み込み
-        with open('data.pickle', mode='rb') as f:
+        with open('mini_data.pickle', mode='rb') as f:
             datas = pickle.load(f)
 
         # 判定
@@ -94,7 +103,6 @@ def main():
                 i += 1
             print("finish about one face")
 
-            print("似ているのは{}！！！".format(similar_paths[0]))
             im0 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[0]))
             im1 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[1]))
             im2 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[2]))
@@ -107,8 +115,12 @@ def main():
             im9 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[9]))
             im_target = cv2.imread("./target_face/{}".format(target_image_paths[target_num].split("/")[-1]))
 
-            cv2.imshow("target", im_target)
+
+            # 最も似ている画像について
+            print("似ているのは{}！！！".format(similar_paths[0]))
             cv2.imshow("most similar", im0)
+            cv2.imshow("target", im_target)
+
 
             im0_s = cv2.resize(im0, dsize=(0, 0), fx=0.5, fy=0.5)
             im1_s = cv2.resize(im1, dsize=(0, 0), fx=0.5, fy=0.5)

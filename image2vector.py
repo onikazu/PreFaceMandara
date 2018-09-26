@@ -6,7 +6,8 @@ import sys
 import glob
 import pickle
 
-trimmed_image_path = "./database/img_align_celeba"
+# trimmed_image_path = "./database/img_align_celeb"
+trimmed_image_path = "./database"
 trimmed_images = glob.glob(trimmed_image_path + "/*.jpg")
 
 vector_images = {}
@@ -29,8 +30,8 @@ for image_file in trimmed_images:
         break
     data_num += 1
 
-
-with open('data.pickle', mode='wb') as f:
+# with open('data.pickle', mode='wb') as f:
+with open('mini_data.pickle', mode='wb') as f:
     pickle.dump(vector_images, f)
 
 print("finished")
