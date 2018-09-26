@@ -30,7 +30,7 @@ def main():
     cap = cv2.VideoCapture(0)  # 1はカメラのデバイス番号
     while True:
         ret, frame = cap.read()
-        frame.imshow()
+        cv2.imshow("camera", frame)
 
         # 顔認識
         detector = dlib.get_frontal_face_detector()
@@ -107,8 +107,8 @@ def main():
             im9 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[9]))
             im_target = cv2.imread("./target_face/{}".format(target_image_paths[target_num].split("/")[-1]))
 
-            im0.imshow()
-            im_target.imshow()
+            cv2.imshow("target", im_target)
+            cv2.imshow("most similar", im0)
 
             im0_s = cv2.resize(im0, dsize=(0, 0), fx=0.5, fy=0.5)
             im1_s = cv2.resize(im1, dsize=(0, 0), fx=0.5, fy=0.5)
