@@ -24,8 +24,11 @@ for image_file in trimmed_images:
         continue
     face_encoding = face_recognition.face_encodings(image)[0]
     vector_images[image_file.split("/")[-1]] = face_encoding.tolist()
+
     if data_num == 100:
         break
+    data_num += 1
+
 
 with open('data.pickle', mode='wb') as f:
     pickle.dump(vector_images, f)
