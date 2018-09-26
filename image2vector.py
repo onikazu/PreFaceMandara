@@ -8,6 +8,8 @@ import pickle
 
 trimmed_image_path = "./database/img_align_celeba"
 trimmed_images = glob.glob(trimmed_image_path + "/*")
+print(trimmed_images)
+
 
 vector_images = {}
 
