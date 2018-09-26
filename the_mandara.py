@@ -32,7 +32,7 @@ def concat_tile(im_list_2d):
 
 
 def main():
-    cap = cv2.VideoCapture(0)  # 1はカメラのデバイス番号
+    cap = cv2.VideoCapture(1)  # 1はカメラのデバイス番号
     while True:
         ret, frame = cap.read()
         # 顔認識
@@ -42,12 +42,14 @@ def main():
         cv2.imshow("camera", frame)
 
         # 切り出し
-        if rects == None:
+        if not rects:
             continue
 
         # 画像の保存
+        dst = 0
         for x, rect in enumerate(rects):
             dst = frame[rect.top():rect.bottom(), rect.left():rect.right()]
+            print(dst)
             cv2.imwrite('./target_face/face{}.jpg'.format(x), dst)
             # plt.imshow(dst)
 
@@ -63,6 +65,7 @@ def main():
         print("start")
         target_num = 0
         for target_image_path in target_image_paths:
+            print()
             target_image = face_recognition.load_image_file(target_image_path)
             target_image_encoded = face_recognition.face_encodings(target_image)[0]
 
@@ -79,9 +82,12 @@ def main():
                     similar_distances.append(distance)
                     similar_paths.append(k)
                     similar_vecs.append(datas[k])
-                else:
                     i += 1
-                    for j in range(len(similar_distances)):
+
+                for j in range(len(similar_distances)):
+                    # 10個以上
+                    if len(similar_distances) >= 10:
+                        # より近い
                         if similar_distances[j] > distance:
                             similar_distances.insert(j, distance)
                             similar_paths.insert(j, k)
@@ -89,7 +95,15 @@ def main():
                             del similar_distances[-1]
                             del similar_paths[-1]
                             del similar_vecs[-1]
-                        if len(similar_distances) < 10:
+                            break
+                    # 10個以下
+                    else:
+                        if similar_distances[j] > distance:
+                            similar_distances.insert(j, distance)
+                            similar_paths.insert(j, k)
+                            similar_vecs.insert(j, datas[k])
+                            break
+                        if j == len(similar_distances)-1:
                             similar_distances.append(distance)
                             similar_paths.append(k)
                             similar_vecs.append(datas[k])
@@ -99,24 +113,35 @@ def main():
                 i += 1
             print("finish about one face")
 
-            im0 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[0]))
-            im1 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[1]))
-            im2 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[2]))
-            im3 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[3]))
-            im4 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[4]))
-            im5 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[5]))
-            im6 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[6]))
-            im7 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[7]))
-            im8 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[8]))
-            im9 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[9]))
-            im_target = cv2.imread("./target_face/{}".format(target_image_paths[target_num].split("/")[-1]))
+            # im0 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[0]))
+            # im1 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[1]))
+            # im2 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[2]))
+            # im3 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[3]))
+            # im4 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[4]))
+            # im5 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[5]))
+            # im6 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[6]))
+            # im7 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[7]))
+            # im8 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[8]))
+            # im9 = cv2.imread("./database/img_align_celeba/{}".format(similar_paths[9]))
+            print(similar_paths)
 
+            im0 = cv2.imread("./database/{}".format(similar_paths[0]))
+            im1 = cv2.imread("./database/{}".format(similar_paths[1]))
+            im2 = cv2.imread("./database/{}".format(similar_paths[2]))
+            im3 = cv2.imread("./database/{}".format(similar_paths[3]))
+            im4 = cv2.imread("./database/{}".format(similar_paths[4]))
+            im5 = cv2.imread("./database/{}".format(similar_paths[5]))
+            im6 = cv2.imread("./database/{}".format(similar_paths[6]))
+            im7 = cv2.imread("./database/{}".format(similar_paths[7]))
+            im8 = cv2.imread("./database/{}".format(similar_paths[8]))
+            im9 = cv2.imread("./database/{}".format(similar_paths[9]))
+            im_target = cv2.imread("./target_face/{}".format(target_image_paths[target_num].split("/")[-1]))
+            im_target = cv2.resize(im_target, (178, 218))
 
             # 最も似ている画像について
             print("似ているのは{}！！！".format(similar_paths[0]))
             cv2.imshow("most similar", im0)
             cv2.imshow("target", im_target)
-
 
             im0_s = cv2.resize(im0, dsize=(0, 0), fx=0.5, fy=0.5)
             im1_s = cv2.resize(im1, dsize=(0, 0), fx=0.5, fy=0.5)
@@ -127,15 +152,15 @@ def main():
             im6_s = cv2.resize(im6, dsize=(0, 0), fx=0.5, fy=0.5)
             im7_s = cv2.resize(im7, dsize=(0, 0), fx=0.5, fy=0.5)
             im8_s = cv2.resize(im8, dsize=(0, 0), fx=0.5, fy=0.5)
-            im9_s = cv2.resize(im9, dsize=(0, 0), fx=0.5, fy=0.5)
+            # im9_s = cv2.resize(im9, dsize=(0, 0), fx=0.5, fy=0.5)
+            im_target_s = cv2.resize(im_target, dsize=(0, 0), fx=0.5, fy=0.5)
             im_tile = concat_tile([[im0_s, im1_s, im2_s],
-                                   [im7_s, im_target, im3_s],
+                                   [im7_s, im_target_s, im3_s],
                                    [im6_s, im5_s, im4_s]])
-            im_tile.imshow()
+            cv2.imshow("tile", im_tile)
             target_num += 1
-            cv2.imwrite('data/dst/opencv_concat_tile.jpg', im_tile)
+            cv2.imwrite('./opencv_concat_tile.jpg', im_tile)
             break
-    cap.release()
 
 
 if __name__ == '__main__':
