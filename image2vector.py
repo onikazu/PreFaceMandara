@@ -9,7 +9,6 @@ import pickle
 trimmed_image_path = "./database/img_align_celeba"
 trimmed_images = glob.glob(trimmed_image_path + "/*.jpg")
 
-
 vector_images = {}
 
 # 辞書型のデータを作る
@@ -21,7 +20,8 @@ for image_file in trimmed_images:
     print(rects)
     print(rects[0])
     # 顔認識してい無いとき
-    if rects.count() == 0:
+
+    if rects.__bool__ is False:
         continue
 
     print(len(face_recognition.face_encodings(image)[0]))
