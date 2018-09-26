@@ -79,6 +79,9 @@ def main():
                             similar_distances.insert(j, distance)
                             similar_paths.insert(j, k)
                             similar_vecs.insert(j, datas[k])
+                            del similar_distances[-1]
+                            del similar_paths[-1]
+                            del similar_vecs[-1]
                         if len(similar_distances) < 10:
                             similar_distances.append(distance)
                             similar_paths.append(k)
