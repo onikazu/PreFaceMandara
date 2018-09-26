@@ -41,8 +41,9 @@ def main():
 
         # cv2.imshow("camera", frame)
 
-        # 切り出し
+        # 顔認識できなかったら
         if not rects:
+            print("cant recognize faces")
             continue
 
         # 画像の保存
