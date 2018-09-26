@@ -39,7 +39,7 @@ def main():
         detector = dlib.get_frontal_face_detector()
         rects = detector(frame, 1)
 
-        cv2.imshow("camera", frame)
+        # cv2.imshow("camera", frame)
 
         # 切り出し
         if not rects:
@@ -137,8 +137,8 @@ def main():
 
             # 最も似ている画像について
             print("似ているのは{}！！！".format(similar_paths[0]))
-            cv2.imshow("most similar", im0)
-            cv2.imshow("target", im_target)
+            # cv2.imshow("most similar", im0)
+            # cv2.imshow("target", im_target)
 
             im0_s = cv2.resize(im0, dsize=(0, 0), fx=0.5, fy=0.5)
             im1_s = cv2.resize(im1, dsize=(0, 0), fx=0.5, fy=0.5)
@@ -154,7 +154,7 @@ def main():
             im_tile = concat_tile([[im0_s, im1_s, im2_s],
                                    [im7_s, im_target_s, im3_s],
                                    [im6_s, im5_s, im4_s]])
-            cv2.imshow("tile", im_tile)
+            # cv2.imshow("tile", im_tile)
             target_num += 1
             cv2.imwrite('./opencv_concat_tile.jpg', im_tile)
             break
