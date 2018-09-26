@@ -19,7 +19,7 @@ for image_file in trimmed_images:
     detector = dlib.get_frontal_face_detector()
     rects = detector(image, 1)
     # 顔認識してい無いとき
-    if rects == dlib.rectangle[]:
+    if rects == dlib.rectangles[]:
         continue
 
     print(len(face_recognition.face_encodings(image)[0]))
