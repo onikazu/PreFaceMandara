@@ -37,10 +37,8 @@ def main():
         # 画像の保存
         for x, rect in enumerate(rects):
             dst = frame[rect.top():rect.bottom(), rect.left():rect.right()]
-            print(dst)
-            print(rect.top())
             cv2.imwrite('./target_face/face{}.jpg'.format(x), dst)
-            plt.imshow(dst)
+            # plt.imshow(dst)
 
         # 顔写真の読み込み
         target_image_paths = glob.glob("./target_face/face*.jpg")
