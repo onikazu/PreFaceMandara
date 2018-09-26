@@ -39,11 +39,7 @@ def main():
         detector = dlib.get_frontal_face_detector()
         rects = detector(frame, 1)
 
-
-
         cv2.imshow("camera", frame)
-
-
 
         # 切り出し
         if rects == None:
@@ -138,6 +134,8 @@ def main():
             im_tile.imshow()
             target_num += 1
             cv2.imwrite('data/dst/opencv_concat_tile.jpg', im_tile)
+            break
+    cap.release()
 
 
 if __name__ == '__main__':
