@@ -21,6 +21,11 @@ def get_distance(a, b):
         distance += (a[i] - b[i]) ** 2
     return math.sqrt(distance)
 
+def concat_tile(im_list_2d):
+    return cv2.vconcat([cv2.hconcat(im_list_h) for im_list_h in im_list_2d])
+
+
+
 def main():
     cap = cv2.VideoCapture(0)  # 1はカメラのデバイス番号
     while True:
@@ -80,15 +85,41 @@ def main():
                             similar_vecs.append(datas[k])
 
                 print("{0}:{1}".format(k, distance))
+                print("number{} is end".format(i))
                 i += 1
             print("finish about one face")
 
             print("似ているのは{}！！！".format(similar_paths[0]))
-            im1 = Image.open("./database/{}".format(similar_paths[0]))
-            im2 = Image.open("./target_face/{}".format(target_image_paths.split("/")[-1]))
+            im0 = Image.open("./database/{}".format(similar_paths[0]))
+            im1 = Image.open("./database/{}".format(similar_paths[1]))
+            im2 = Image.open("./database/{}".format(similar_paths[2]))
+            im3 = Image.open("./database/{}".format(similar_paths[3]))
+            im4 = Image.open("./database/{}".format(similar_paths[4]))
+            im5 = Image.open("./database/{}".format(similar_paths[5]))
+            im6 = Image.open("./database/{}".format(similar_paths[6]))
+            im7 = Image.open("./database/{}".format(similar_paths[7]))
+            im8 = Image.open("./database/{}".format(similar_paths[8]))
+            im9 = Image.open("./database/{}".format(similar_paths[9]))
+            im_target = Image.open("./target_face/{}".format(target_image_paths.split("/")[-1]))
 
-            im1.show()
-            im2.show()
+            im0.show()
+            im_target.show()
+
+            im0_s = cv2.resize(im0, dsize=(0, 0), fx=0.5, fy=0.5)
+            im1_s = cv2.resize(im1, dsize=(0, 0), fx=0.5, fy=0.5)
+            im2_s = cv2.resize(im2, dsize=(0, 0), fx=0.5, fy=0.5)
+            im3_s = cv2.resize(im3, dsize=(0, 0), fx=0.5, fy=0.5)
+            im4_s = cv2.resize(im4, dsize=(0, 0), fx=0.5, fy=0.5)
+            im5_s = cv2.resize(im5, dsize=(0, 0), fx=0.5, fy=0.5)
+            im6_s = cv2.resize(im6, dsize=(0, 0), fx=0.5, fy=0.5)
+            im7_s = cv2.resize(im7, dsize=(0, 0), fx=0.5, fy=0.5)
+            im8_s = cv2.resize(im8, dsize=(0, 0), fx=0.5, fy=0.5)
+            im9_s = cv2.resize(im9, dsize=(0, 0), fx=0.5, fy=0.5)
+            im_tile = concat_tile([[im0_s, im1_s, im2_s],
+                                   [im7_s, im_target, im3_s],
+                                   [im6_s, im5_s, im4_s]])
+            im_tile.imshow()
+            cv2.imwrite('data/dst/opencv_concat_tile.jpg', im_tile)
 
 
 if __name__ == '__main__':
