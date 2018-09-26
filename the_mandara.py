@@ -54,6 +54,7 @@ def main():
             target_image = face_recognition.load_image_file(target_image_path)
             target_image_encoded = face_recognition.face_encodings(target_image)[0]
 
+            # 9個似ている顔を判定してやる
             similar_vec = []
             similar_path = []
             similar_distance = []
