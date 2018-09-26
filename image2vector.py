@@ -22,7 +22,7 @@ for image_file in trimmed_images:
     print(rects.__bool__)
     # 顔認識してい無いとき
 
-    if rects.__bool__ is False:
+    if not rects:
         continue
 
     print(len(face_recognition.face_encodings(image)[0]))
