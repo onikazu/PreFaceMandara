@@ -80,8 +80,8 @@ def main():
                             similar_vecs.append(datas[k])
 
                 print("{0}:{1}".format(k, distance))
-            print("finish about one face")
                 i += 1
+            print("finish about one face")
 
             print("似ているのは{}！！！".format(similar_paths[0]))
             im1 = Image.open("./database/{}".format(similar_paths[0]))
