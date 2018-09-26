@@ -21,6 +21,7 @@ def get_distance(a, b):
         distance += (a[i] - b[i]) ** 2
     return math.sqrt(distance)
 
+
 def concat_tile(im_list_2d):
     """
     イメージをタイル状に敷き詰める
@@ -30,9 +31,8 @@ def concat_tile(im_list_2d):
     return cv2.vconcat([cv2.hconcat(im_list_h) for im_list_h in im_list_2d])
 
 
-
 def main():
-    cap = cv2.VideoCapture(1)  # 1はカメラのデバイス番号
+    cap = cv2.VideoCapture(0)  # 1はカメラのデバイス番号
     while True:
         ret, frame = cap.read()
         # 顔認識
@@ -68,12 +68,10 @@ def main():
             print()
             target_image = face_recognition.load_image_file(target_image_path)
             target_image_encoded = face_recognition.face_encodings(target_image)[0]
-
             # 9個似ている顔を判定してやる
             similar_vecs = []
             similar_paths = []
             similar_distances = []
-
             i = 0
             for k in datas:
                 distance = get_distance(datas[k], list(target_image_encoded))
@@ -83,7 +81,6 @@ def main():
                     similar_paths.append(k)
                     similar_vecs.append(datas[k])
                     i += 1
-
                 for j in range(len(similar_distances)):
                     # 10個以上
                     if len(similar_distances) >= 10:
