@@ -66,7 +66,6 @@ def main():
         print("start")
         target_num = 0
         for target_image_path in target_image_paths:
-            print()
             target_image = face_recognition.load_image_file(target_image_path)
             try:
                 target_image_encoded = face_recognition.face_encodings(target_image)[0]
@@ -162,6 +161,8 @@ def main():
             # cv2.imshow("tile", im_tile)
             target_num += 1
             cv2.imwrite('./opencv_concat_tile.jpg', im_tile)
+            tile_image = Image.open('./opencv_concat_tile.jpg')
+            tile_image.show()
             break
 
 
