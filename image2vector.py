@@ -6,7 +6,7 @@ import sys
 import glob
 import pickle
 
-trimmed_image_path = "./database"
+trimmed_image_path = "./database/img_align_celeba"
 trimmed_images = glob.glob(trimmed_image_path + "/*.jpg")
 print(trimmed_images)
 
