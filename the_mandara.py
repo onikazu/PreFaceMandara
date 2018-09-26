@@ -55,6 +55,7 @@ def main():
         # 判定
         print(target_image_paths)
         print("start")
+        target_num = 0
         for target_image_path in target_image_paths:
             target_image = face_recognition.load_image_file(target_image_path)
             target_image_encoded = face_recognition.face_encodings(target_image)[0]
@@ -103,7 +104,7 @@ def main():
             im7 = Image.open("./database/img_align_celeba/{}".format(similar_paths[7]))
             im8 = Image.open("./database/img_align_celeba/{}".format(similar_paths[8]))
             im9 = Image.open("./database/img_align_celeba/{}".format(similar_paths[9]))
-            im_target = Image.open("./target_face/{}".format(target_image_paths.split("/")[-1]))
+            im_target = Image.open("./target_face/{}".format(target_image_paths[target_num].split("/")[-1]))
 
             im0.show()
             im_target.show()
@@ -122,6 +123,7 @@ def main():
                                    [im7_s, im_target, im3_s],
                                    [im6_s, im5_s, im4_s]])
             im_tile.imshow()
+            target_num += 1
             cv2.imwrite('data/dst/opencv_concat_tile.jpg', im_tile)
 
 
