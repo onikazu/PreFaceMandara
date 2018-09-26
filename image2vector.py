@@ -19,6 +19,7 @@ for image_file in trimmed_images:
     rects = detector(image, 1)
     print(rects)
     print(rects[0])
+    print(rects.__bool__)
     # 顔認識してい無いとき
 
     if rects.__bool__ is False:
