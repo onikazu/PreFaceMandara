@@ -21,7 +21,7 @@ for image_file in trimmed_images:
     print(rects)
     print(rects[0])
     # 顔認識してい無いとき
-    if rects[0].is_empty():
+    if rects.count() == 0:
         continue
 
     print(len(face_recognition.face_encodings(image)[0]))
