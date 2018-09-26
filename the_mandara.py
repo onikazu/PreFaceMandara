@@ -32,8 +32,8 @@ def concat_tile(im_list_2d):
 
 
 def main():
-    cap = cv2.VideoCapture(0)  # 1はカメラのデバイス番号
     while True:
+        cap = cv2.VideoCapture(0)  # 1はカメラのデバイス番号
         ret, frame = cap.read()
         # 顔認識
         detector = dlib.get_frontal_face_detector()
@@ -164,6 +164,7 @@ def main():
             tile_image = Image.open('./opencv_concat_tile.jpg')
             tile_image.show()
             tile_image.close()
+            cap.release()
             break
 
 
