@@ -83,14 +83,12 @@ def main():
                 print("{0}:{1}".format(k, distance))
                 i += 1
 
-            print("似ているのは{}！！！".format(similar_path))
-            im1 = Image.open("./database/{}".format(similar_path))
+            print("似ているのは{}！！！".format(similar_paths[0]))
+            im1 = Image.open("./database/{}".format(similar_paths[0]))
             im2 = Image.open("./target_face/{}".format(target_image_paths.split("/")[-1]))
 
             im1.show()
             im2.show()
-
-
 
 
 if __name__ == '__main__':
