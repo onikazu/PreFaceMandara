@@ -15,7 +15,13 @@ vector_images = {}
 for image_file in trimmed_images:
     image = face_recognition.load_image_file(image_file)
 
-    print(len(face_recognition.face_encodings(image)[0]))
+    # 顔認識
+    detector = dlib.get_frontal_face_detector()
+    rects = detector(image, 1)
+    # 顔認識していないとき
+    if rects == None:
+        continue
+
     face_encoding = face_recognition.face_encodings(image)[0]
     vector_images[image_file.split("/")[-1]] = face_encoding.tolist()
 
