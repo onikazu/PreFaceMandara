@@ -68,7 +68,11 @@ def main():
         for target_image_path in target_image_paths:
             print()
             target_image = face_recognition.load_image_file(target_image_path)
-            target_image_encoded = face_recognition.face_encodings(target_image)[0]
+            try:
+                target_image_encoded = face_recognition.face_encodings(target_image)[0]
+            except IndexError:
+                print("error happened")
+                break
             # 9個似ている顔を判定してやる
             similar_vecs = []
             similar_paths = []
