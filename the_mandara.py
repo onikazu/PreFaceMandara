@@ -48,6 +48,8 @@ def main():
             datas = pickle.load(f)
 
         # 判定
+        print(target_image_paths)
+        print("start")
         for target_image_path in target_image_paths:
             target_image = face_recognition.load_image_file(target_image_path)
             target_image_encoded = face_recognition.face_encodings(target_image)[0]
@@ -77,8 +79,8 @@ def main():
                             similar_paths.append(k)
                             similar_vecs.append(datas[k])
 
-
                 print("{0}:{1}".format(k, distance))
+            print("finish about one face")
                 i += 1
 
             print("似ているのは{}！！！".format(similar_paths[0]))
