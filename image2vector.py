@@ -30,6 +30,7 @@ for image_file in trimmed_images:
         break
     data_num += 1
 
+# vector_images is like {"face0.jpg":[0.11,.....], }
 # with open('data.pickle', mode='wb') as f:
 with open('mini_data.pickle', mode='wb') as f:
     pickle.dump(vector_images, f)
