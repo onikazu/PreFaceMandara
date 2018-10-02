@@ -26,13 +26,13 @@ for image_file in trimmed_images:
     face_encoding = face_recognition.face_encodings(image)[0]
     vector_images[image_file.split("/")[-1]] = face_encoding.tolist()
 
-    if data_num == 1000:
+    if data_num == 10000:
         break
     data_num += 1
 
 # vector_images is like {"face0.jpg":[0.11,.....], }
 # with open('data.pickle', mode='wb') as f:
-with open('mini_data.pickle', mode='wb') as f:
+with open('midium_data.pickle', mode='wb') as f:
     pickle.dump(vector_images, f)
 
 print("finished")

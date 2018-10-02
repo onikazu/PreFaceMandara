@@ -155,6 +155,7 @@ def main():
                                [im3, frame, im4],
                                [im5, im6, im7]])
 
+        recog_flag = True
         cv2.imshow('tile camera', im_tile)
 
 
