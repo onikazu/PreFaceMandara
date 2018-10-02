@@ -7,7 +7,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import glob
-
+import numpy as np
 
 def get_distance(a, b):
     """
@@ -38,6 +38,21 @@ def main():
     with open('mini_data.pickle', mode='rb') as f:
         datas = pickle.load(f)
 
+    # 初回の読み込みが完了したかどうか
+    recog_flag = False
+
+    im_tile = np.ndarray([])
+    im0 = np.ndarray([])
+    im1 = np.ndarray([])
+    im2 = np.ndarray([])
+    im3 = np.ndarray([])
+    im4 = np.ndarray([])
+    im5 = np.ndarray([])
+    im6 = np.ndarray([])
+    im7 = np.ndarray([])
+    im8 = np.ndarray([])
+    im9 = np.ndarray([])
+
     while True:
         ret, frame = cap.read()
 
@@ -50,7 +65,16 @@ def main():
         # 顔認識できなかったとき
         if not rects:
             print("cant recognize faces")
+            # 認識済みなら
+            if recog_flag:
+                frame = cv2.resize(frame, (178, 218))
+                im_tile = concat_tile([[im0, im1, im2],
+                                       [im3, frame, im4],
+                                       [im5, im6, im7]])
+
+                cv2.imshow('tile camera', im_tile)
             continue
+
         dsts = []
         for rect in rects:
             dst = frame[rect.top():rect.bottom(), rect.left():rect.right()]
@@ -61,7 +85,17 @@ def main():
         try:
             target_image_encoded = face_recognition.face_encodings(dsts[0])[0]
         except IndexError:
+            # 認識済みなら
+            if recog_flag:
+                frame = cv2.resize(frame, (178, 218))
+                im_tile = concat_tile([[im0, im1, im2],
+                                       [im3, frame, im4],
+                                       [im5, im6, im7]])
+
+                cv2.imshow('tile camera', im_tile)
+
             continue
+
         similar_vecs = []
         similar_paths = []
         similar_distances = []
